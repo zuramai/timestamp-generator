@@ -23,6 +23,7 @@ main {
     margin-top: 2rem;
     margin-bottom: 3rem;
     background-color: rgb(247, 244, 244);
+    position: relative;
     border: 1px dashed rgb(165, 159, 159);
     box-shadow: 1px 15px 40px rgb(231, 231, 231);
     border-radius: 1rem;
@@ -34,6 +35,7 @@ main {
 }
 .dropzone > p {
     line-height: 220px;
+    display: none;
 }
 .dropzone.dropzone-dragging {
     background-color: rgb(240, 235, 235);
@@ -63,10 +65,13 @@ form {
     flex-wrap: wrap;
     margin: 0 -1rem;
     height: 80%;
+    flex-direction: column;
     overflow-y: auto;
 }
 .image {
     width: calc(1/4 * 100%);
+    height: 120px;
+    object-fit: cover;
     padding: .5rem 1rem;
 }
 .image img {
@@ -82,6 +87,7 @@ form {
     margin-top: 1rem;
     border-radius: .3rem;
     cursor: pointer;
+    display: none;
 }
 #generate {
     background-color: #3658d6;
@@ -94,3 +100,39 @@ form {
 #generate:active {
     background-color: #2a49bb;
 }
+.loader-wrapper {
+    display: none;
+}
+.loader {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 1rem;
+    inset: 0;
+    background-color: rgba(247, 244, 244, .7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.show {
+    display: block !important;
+}
+.loader p {
+    color: black;
+    font-weight: 300;
+}
+.loader-shape {
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+    background:#000;
+    box-shadow: 0 0 0 0 #0004;
+    animation:pl1 1s infinite;
+    margin-bottom: 2rem;
+}
+@keyframes pl1 {
+    100% {box-shadow: 0 0 0 30px #0000}
+}
+  

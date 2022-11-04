@@ -7,7 +7,7 @@
     <title>Timestamp Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
@@ -24,14 +24,14 @@
                             <input type="date" name="start" id="start" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="start">End date:</label>
-                            <input type="date" name="start" id="start" class="form-control">
+                            <label for="end">End date:</label>
+                            <input type="date" name="end" id="end" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="start">Watermark Position:</label>
                             <select name="position" id="position" class="form-control">
                                 <option value="bottom-right">Bottom Right</option>
-                                <option value="bottom-left">bottom left</option>
+                                <option value="bottom-left">Bottom Left</option>
                                 <option value="top-right">Top Right</option>
                                 <option value="top-left">Top left</option>
                             </select>
@@ -40,31 +40,23 @@
                 </div>
 
                 <div id="dropzone" class="dropzone col-md-6 col-12 mx-auto">
-                    <!-- <p>+ Drop your images here</p> -->
-                    <div class="images">
-                        <div class="image">
-                            <img src="img.jpg" alt="Image" >
-                        </div>
-                        <div class="image">
-                            <img src="img.jpg" alt="Image" >
-                        </div>
-                        <div class="image">
-                            <img src="img.jpg" alt="Image" >
-                        </div>
-                        <div class="image">
-                            <img src="img.jpg" alt="Image" >
-                        </div>
-                        <div class="image">
-                            <img src="img.jpg" alt="Image" >
+                    <p class="show">+ Drop your images here</p>
+                    <div class="loader-wrapper">
+                        <div class="loader">
+                            <div class="loader-shape"></div>
+                            <p>CONVERTING..</p>
                         </div>
                     </div>
+                    <div class="images">
+                    </div>
                     <div class="buttons">
-                        <button id="generate">Generate</button>
-                        <!-- <button id="download">Download</button> -->
+                        <button id="generate" class="show">Generate</button>
+                        <button id="download">Download</button>
                     </div>
                 </div>
                 <input type="file" name="files" class="dropzone-input" multiple />
             </div>
+            <canvas id="canvas" width="1920" height="1080"></canvas>
         </main>
         <footer class="text-center">
             Created by <a href="https://saugi.me" target="_blank">Ahmad Saugi</a>
