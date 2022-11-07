@@ -17,6 +17,9 @@ h1 {
 main {
     margin: 4rem 0;
 }
+#canvas {
+    display: none;
+}
 .dropzone {
     height: 320px;
     padding: 1rem;
@@ -62,10 +65,11 @@ form {
 }
 .images {
     display: flex;
+    justify-content: start;
     flex-wrap: wrap;
     margin: 0 -1rem;
     height: 80%;
-    flex-direction: column;
+    flex-direction: row;
     overflow-y: auto;
 }
 .image {
@@ -79,6 +83,7 @@ form {
     border-radius: 5px;
     box-shadow: 2px 10px 10px #ccc;
     height: 100%;
+    object-fit: cover;
 }
 .buttons button {
     width: 100%;

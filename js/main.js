@@ -44,6 +44,7 @@ dropzone.addEventListener('drop', function(e) {
 
     files = Array.from(fileList)
     dropzoneInput.files = dataTransfer.files;
+    btnGenerate.classList.add('show')
     showImages()
 }, false);
   
@@ -53,13 +54,20 @@ const showLoading = () => {
     console.log('show loadint')
     setTimeout(() => {
         loader.classList.remove('show')        
-    }, 3000)
+    }, 1000)
 }
 
 const countDaysBetween = (date1, date2) => {
     let difference = new Date(date2).getTime() - new Date(date1).getTime()
     let totalDays = Math.ceil(difference / (1000 * 3600 * 24))
     return totalDays
+}
+
+const randomTime = () => {
+    return {
+        hour: Math.floor(Math.random() * 14) + 8, // between 8 - 14
+        minute:  Math.floor(Math.random() * 59) 
+    } 
 }
 
 const generate = async () => {
@@ -79,10 +87,14 @@ const generate = async () => {
         const image = new Image()
         image.src = imageUrl
 
+        currentDayToPrint.setHours(randomTime().hour)
+        currentDayToPrint.setMinutes(randomTime().minute)
+
         // Process the image
-        await draw(image, currentDayToPrint.toLocaleDateString(), "Binus University Anggrek Campus, Jakarta Barat")
-        download(currentDayToPrint.toLocaleDateString())
         currentDayToPrint.setDate(currentDayToPrint.getDate()+1)
+        console.log('printing', currentDayToPrint.toLocaleString())
+        await draw(image, currentDayToPrint.toLocaleString(), "Binus University Anggrek Campus, Jakarta Barat")
+        download(currentDayToPrint.toLocaleDateString())
     })
 }
 btnGenerate.addEventListener('click', e => {
@@ -92,6 +104,8 @@ btnGenerate.addEventListener('click', e => {
     showLoading()
     generate()
 })
+
+
 
 const canvas = document.getElementById('canvas')
 /** @type {CanvasRenderingContext2D} */
@@ -106,6 +120,11 @@ function getFontSize() {
     return (size|0) 
 }
 
+const strokeAndFill = (text, x, y) => {
+    ctx.fillText(text, x, y)
+    ctx.strokeText(text, x, y)
+}
+
 const draw = async (image, date, place) => {
     return new Promise((resolve) => {
         // set canvas size to image size
@@ -115,17 +134,25 @@ const draw = async (image, date, place) => {
             canvas.setAttribute('width', image.width) 
             canvas.setAttribute('height', image.height) 
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
+
             // Draw text
             const fontSize = getFontSize()
             ctx.fillStyle = "white"
             ctx.font = `${fontSize}px 'Noto Sans'`
             ctx.textBaseline = "top"
-            ctx.fillText(date, 20, 20)
-            ctx.fillText(place, 20, 20 + fontSize + 30)
+            ctx.strokeStyle = "black"
+            ctx.lineWidth = 2
+            strokeAndFill(date, 20, 20)
+            strokeAndFill(place, 20, 20 + fontSize + 30)
             resolve()
         }
     })
 }
+
+/**
+ * Download the image from canvas
+ * @param {number} number The order of the image, that will be put in the end of the name of output image
+ */
 const download = (number) => {
     console.log('downloading', number)
     var link = document.createElement('a');
