@@ -118,7 +118,7 @@ const ctx = canvas.getContext('2d')
 
 
 function getFontSize() {
-    let fontBase = 1000, fontSize = 30;                    
+    let fontBase = 1000, fontSize = 40;                    
     let ratio = fontSize / fontBase;  
     let size = canvas.width * ratio;   
     return (size|0) 
@@ -133,11 +133,13 @@ const draw = async (image, date, place) => {
     return new Promise((resolve) => {
         // set canvas size to image size
         image.onload = () => {
-            console.log('iage loageded', image)
+
+            const sizeX = image.width/3
+            const sizeY = image.height/3
     
-            canvas.setAttribute('width', image.width/2) 
-            canvas.setAttribute('height', image.height/2) 
-            ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
+            canvas.setAttribute('width', sizeX) 
+            canvas.setAttribute('height', sizeY) 
+            ctx.drawImage(image, 0, 0, sizeX, sizeY)
 
             // Draw text
             const fontSize = getFontSize()
