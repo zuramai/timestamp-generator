@@ -92,9 +92,13 @@ const generate = async () => {
 
         // Process the image
         currentDayToPrint.setDate(currentDayToPrint.getDate()+1)
-        console.log('printing', currentDayToPrint.toLocaleString())
-        await draw(image, currentDayToPrint.toLocaleString(), "Binus University Anggrek Campus, Jakarta Barat")
-        download(currentDayToPrint.toLocaleDateString())
+        const dateString = currentDayToPrint.toLocaleString();
+
+        draw(image, dateString, "Binus University Anggrek Campus, Jakarta Barat")
+        .then(() => {
+                console.log('printing', dateString)
+                download(dateString)
+            })
     })
 }
 btnGenerate.addEventListener('click', e => {
@@ -131,8 +135,8 @@ const draw = async (image, date, place) => {
         image.onload = () => {
             console.log('iage loageded', image)
     
-            canvas.setAttribute('width', image.width) 
-            canvas.setAttribute('height', image.height) 
+            canvas.setAttribute('width', image.width/2) 
+            canvas.setAttribute('height', image.height/2) 
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
 
             // Draw text
