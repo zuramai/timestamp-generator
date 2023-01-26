@@ -82,7 +82,7 @@ const generate = async () => {
 
     let currentDayToPrint = new Date(startDate)
 
-    files.forEach(async file => {
+    files.forEach(async (file, i) => {
         const imageUrl = URL.createObjectURL(file)
         const image = new Image()
         image.src = imageUrl
@@ -91,7 +91,7 @@ const generate = async () => {
         currentDayToPrint.setMinutes(randomTime().minute)
 
         // Process the image
-        currentDayToPrint.setDate(currentDayToPrint.getDate()+1)
+        currentDayToPrint.setDate(currentDayToPrint.getDate() + ((i === 0) ? 0 : 1))
         const dateString = currentDayToPrint.toLocaleString();
 
         draw(image, dateString, "Binus University Anggrek Campus, Jakarta Barat")
